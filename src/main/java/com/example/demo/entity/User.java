@@ -24,7 +24,7 @@ public class User {
     @Column(nullable = false)
     private String role = "STAFF"; // default role
 
-+    public User() {}
+  public User() {}
 
     public User(String name, String email, String password, String role) {
         this.name = name;
