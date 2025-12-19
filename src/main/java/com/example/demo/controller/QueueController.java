@@ -19,14 +19,16 @@ public class QueueController {
 
     @PutMapping("/position/{tokenId}/{newPosition}")
     @Operation(summary = "Update queue position")
-    public QueuePosition updatePosition(@PathVariable Long tokenId,
-                                        @PathVariable Integer newPosition) {
+    public QueuePosition updatePosition(
+            @PathVariable Long tokenId,
+            @PathVariable Integer newPosition
+    ) {
         return queueService.updateQueuePosition(tokenId, newPosition);
     }
 
     @GetMapping("/position/{tokenId}")
     @Operation(summary = "Get queue position for token")
-    public QueuePosition getx getPosition(@PathVariable Long tokenId) {
+    public QueuePosition getPosition(@PathVariable Long tokenId) {
         return queueService.getPosition(tokenId);
     }
 }
