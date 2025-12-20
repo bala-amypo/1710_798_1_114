@@ -1,12 +1,12 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.entity.ServiceCounter;
+// import com.example.demo.entity.ServiceCounter;
 
-import java.util.List;
+// import java.util.List;
 
-public interface ServiceCounterService {
+// public interface ServiceCounterService {
 
-    ServiceCounter addCounter(ServiceCounter counter);
+//     ServiceCounter addCounter(ServiceCounter counter);
 
-    List<ServiceCounter> getActiveCounters();
-}
+//     List<ServiceCounter> getActiveCounters();
+// }
