@@ -12,7 +12,7 @@
 // import org.springframework.web.bind.annotation.*;
 
 // @RestController
-// @RequestMapping("/auth")
+// @RequestMapping ("/auth")
 // @Tag(name = "Authentication")
 // public class AuthController {
 
@@ -29,7 +29,7 @@
 //     @PostMapping("/register")
 //     @Operation(summary = "Register a new user")
 //     public User register(@RequestBody RegisterRequest request) {
-//         User user = new User();
+//         User user = new User ();
 //         user.setName(request.getName());
 //         user.setEmail(request.getEmail());
 //         user.setPassword(passwordEncoder.encode(request.getPassword()));

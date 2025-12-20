@@ -7,7 +7,7 @@
 // import org.springframework.web.bind.annotation.*;
 
 // @RestController
-// @RequestMapping("/queue")
+// @RequestMapping ("/queue")
 // @Tag(name = "Queue Management")
 // public class QueueController {
 
