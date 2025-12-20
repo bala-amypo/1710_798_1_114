@@ -24,4 +24,4 @@
 //     public List<ServiceCounter> getActiveCounters() {
 //         return counterRepository.findByIsActiveTrue();
 //     }
-// }
+//}
