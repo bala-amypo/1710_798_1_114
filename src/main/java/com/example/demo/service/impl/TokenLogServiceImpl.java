@@ -8,7 +8,7 @@
 
 // import java.util.List;
 
-// public class TokenLogServiceImpl implements TokenLogService {
+// public class TokenLogServiceImpl implements TokenLogService{
 
 //     private final TokenLogRepository tokenLogRepository;
 //     private final TokenRepository tokenRepository;

@@ -10,7 +10,7 @@
 
 // import java.time.LocalDateTime;
 
-// public class TokenServiceImpl implements TokenService {
+// public class TokenServiceImpl implements TokenService{
 
 //     private final TokenRepository tokenRepository;
 //     private final ServiceCounterRepository counterRepository;
@@ -23,7 +23,7 @@
 //             ServiceCounterRepository counterRepository,
 //             TokenLogRepository tokenLogRepository,
 //             QueuePositionRepository queuePositionRepository
-//     ) {
+//     ){
 //         this.tokenRepository = tokenRepository;
 //         this.counterRepository = counterRepository;
 //         this.tokenLogRepository = tokenLogRepository;
