@@ -5,7 +5,7 @@
 // import com.example.demo.repository.TokenRepository;
 // import com.example.demo.service.QueueService;
 
-// public class QueueServiceImpl implements QueueService {
+// public class QueueServiceImpl implements QueueService{
 
 //     private final QueuePositionRepository queuePositionRepository;
 //     private final TokenRepository tokenRepository;

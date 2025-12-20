@@ -9,7 +9,7 @@
 // import java.util.List;
 
 // @RestController
-// @RequestMapping("/logs")
+// @RequestMapping ("/logs")
 // @Tag(name = "Token Logs")
 // public class TokenLogController {
 
