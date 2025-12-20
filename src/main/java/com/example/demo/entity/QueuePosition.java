@@ -11,33 +11,44 @@ public class QueuePosition {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "token_id", nullable = false, unique = true)
+    @JoinColumn(name = "token_id", unique = true)
     private Token token;
 
-    @Column(nullable = false)
     private Integer position;
 
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    // constructors
     public QueuePosition() {}
 
-    @PrePersist
-    @PreUpdate
-    public void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+    public Long getId() {
+        return id;
     }
 
-    // getters and setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Token getToken() {
+        return token;
+    }
 
-    public Token getToken() { return token; }
-    public void setToken(Token token) { this.token = token; }
+    public Integer getPosition() {
+        return position;
+    }
 
-    public Integer getPosition() { return position; }
-    public void setPosition(Integer position) { this.position = position; }
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
