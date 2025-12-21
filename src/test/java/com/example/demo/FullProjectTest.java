@@ -39,6 +39,7 @@ public class FullProjectTest {
         queueService = new QueueServiceImpl(queueRepo, tokenRepository);
         logService = new TokenLogServiceImpl(logRepo, tokenRepository);
     }
+}
 
     // ---------------------------------------------------------
     // 1: Basic application & servlet checks (7 tests)
