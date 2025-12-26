@@ -1,49 +1,64 @@
 package com.example.demo.config;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-import javax.crypto.SecretKey;
+
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
-    private final SecretKey key;
-    private final long validityInMilliseconds;
 
-    public JwtTokenProvider() {
-        this("ChangeThisSecretKeyReplaceMe1234567890", 3600000);
-    }
+    // Token validity: 1 hour
+    private static final long JWT_EXPIRATION_MS = 60 * 60 * 1000;
 
-    public JwtTokenProvider(String secret, long validityInMilliseconds) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes());
-        this.validityInMilliseconds = validityInMilliseconds;
-    }
+    // Secure secret key (HS256 requires at least 256 bits)
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public String generateToken(Long userId, String email, String role) {
+    /**
+     * Generate JWT token
+     */
+    public String generateToken(String username) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION_MS);
 
         return Jwts.builder()
-                .setSubject(userId.toString())
-                .claim("email", email)
-                .claim("role", role)
+                .setSubject(username)
                 .setIssuedAt(now)
-                .setExpiration(validity)
+                .setExpiration(expiryDate)
                 .signWith(key)
                 .compact();
     }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            return false;
-        }
+    /**
+     * Extract username from token
+     */
+    public String getUsernameFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 
-    public Claims getClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+    /**
+     * Validate JWT token
+     */
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException ex) {
+            return false;
+        }
     }
 }
