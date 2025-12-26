@@ -8,32 +8,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // REQUIRED constructor order
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @Override
     public User register(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already exists");
+            throw new IllegalArgumentException("Email already exists");
         }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getRole() == null) {
-            user.setRole("STAFF");
-        }
-
         return userRepository.save(user);
     }
 
-    @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findByEmail(email).orElse(null);
     }
 }

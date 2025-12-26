@@ -6,39 +6,27 @@ import com.example.demo.repository.TokenLogRepository;
 import com.example.demo.repository.TokenRepository;
 import com.example.demo.service.TokenLogService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class TokenLogServiceImpl implements TokenLogService {
-
-    private final TokenLogRepository tokenLogRepository;
+    private final TokenLogRepository logRepository;
     private final TokenRepository tokenRepository;
 
-    // REQUIRED constructor order
-    public TokenLogServiceImpl(
-            TokenLogRepository tokenLogRepository,
-            TokenRepository tokenRepository
-    ) {
-        this.tokenLogRepository = tokenLogRepository;
+    public TokenLogServiceImpl(TokenLogRepository logRepository, TokenRepository tokenRepository) {
+        this.logRepository = logRepository;
         this.tokenRepository = tokenRepository;
     }
 
-    @Override
     public TokenLog addLog(Long tokenId, String message) {
-
-        Token token = tokenRepository.findById(tokenId)
-                .orElseThrow(() -> new RuntimeException("Token not found"));
-
+        Token token = tokenRepository.findById(tokenId).orElse(null);
         TokenLog log = new TokenLog();
         log.setToken(token);
-        log.setLogMessage(message);
-
-        return tokenLogRepository.save(log);
+        log.setMessage(message);
+        return logRepository.save(log);
     }
 
-    @Override
     public List<TokenLog> getLogs(Long tokenId) {
-        return tokenLogRepository.findByToken_IdOrderByLoggedAtAsc(tokenId);
+        return logRepository.findByToken_IdOrderByLoggedAtAsc(tokenId);
     }
 }
