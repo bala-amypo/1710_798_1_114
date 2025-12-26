@@ -13,16 +13,24 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    private static final long JWT_EXPIRATION_MS = 60 * 60 * 1000; // 1 hour
+    private final long jwtExpirationMs;
+    private final Key key;
 
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // ✅ Constructor expected by tests
+    public JwtTokenProvider(String secret, int jwtExpirationMs) {
+        this.jwtExpirationMs = jwtExpirationMs;
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
-    /**
-     * Generate JWT Token
-     */
+    // ✅ Default constructor for Spring
+    public JwtTokenProvider() {
+        this.jwtExpirationMs = 60 * 60 * 1000; // 1 hour
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    }
+
     public String generateToken(Long userId, String username, String role) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION_MS);
+        Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
                 .setSubject(username)
@@ -34,9 +42,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    /**
-     * Get claims from token
-     */
     public Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -45,16 +50,10 @@ public class JwtTokenProvider {
                 .getBody();
     }
 
-    /**
-     * Get username from token
-     */
     public String getUsernameFromToken(String token) {
         return getClaims(token).getSubject();
     }
 
-    /**
-     * Validate token
-     */
     public boolean validateToken(String token) {
         try {
             getClaims(token);
